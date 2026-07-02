@@ -157,6 +157,13 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
                           children: [Text('block'.tr), const Icon(Icons.block)],
                         ),
                       ),
+                    PopupMenuItem(
+                      value: 6,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text('resetReadProgress'.tr), const Icon(Icons.restore)],
+                      ),
+                    ),
                   ];
                 },
                 onSelected: (value) {
@@ -181,6 +188,9 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
                   }
                   if (value == 5) {
                     logic.blockGallery();
+                  }
+                  if (value == 6) {
+                    logic.handleResetReadProgress();
                   }
                 },
               );
@@ -962,6 +972,7 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
               ),
               onPressed: disabled ? null : logic.handleTapDownload,
               onLongPress: () => toRoute(Routes.download),
+              onSecondaryTap: () => toRoute(Routes.download),
             );
           },
         );
@@ -1003,6 +1014,7 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
             ),
             onPressed: disabled ? null : () => logic.handleTapFavorite(useDefault: preferenceSetting.enableDefaultFavorite.isTrue),
             onLongPress: disabled || preferenceSetting.enableDefaultFavorite.isFalse ? null : () => logic.handleTapFavorite(useDefault: false),
+            onSecondaryTap: disabled || preferenceSetting.enableDefaultFavorite.isFalse ? null : () => logic.handleTapFavorite(useDefault: false),
           ),
           errorWidgetSameWithIdle: true,
         );
@@ -1086,6 +1098,7 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
               ),
               onPressed: disabled ? null : () => logic.handleTapArchive(context),
               onLongPress: () => toRoute(Routes.download),
+              onSecondaryTap: () => toRoute(Routes.download),
             );
           },
         );

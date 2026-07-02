@@ -156,8 +156,8 @@ abstract class BaseLayout extends StatelessWidget {
 
   Widget _buildOnlineImage(BuildContext context, int index) {
     return GestureDetector(
-      onLongPress: () => logic.showBottomMenuInOnlineMode(index, context),
-      onSecondaryTap: () => logic.showBottomMenuInOnlineMode(index, context),
+      onLongPressStart: (details) => logic.showOnlineImageContextMenu(index, context, position: details.globalPosition),
+      onSecondaryTapDown: (details) => logic.showOnlineImageContextMenu(index, context, position: details.globalPosition),
       child: EHImage(
         galleryImage: readPageState.images[index]!,
         containerWidth: logic.readPageState.imageContainerSizes[index]?.width ?? logic.getPlaceHolderSize(index).width,
@@ -258,8 +258,8 @@ abstract class BaseLayout extends StatelessWidget {
         }
 
         return GestureDetector(
-          onLongPress: () => logic.showBottomMenuInLocalMode(index, context),
-          onSecondaryTap: () => logic.showBottomMenuInLocalMode(index, context),
+          onLongPressStart: (details) => logic.showLocalImageContextMenu(index, context, position: details.globalPosition),
+          onSecondaryTapDown: (details) => logic.showLocalImageContextMenu(index, context, position: details.globalPosition),
           child: EHImage(
             galleryImage: readPageState.images[index]!.copyWith(
               path: superResolutionService.computeImageOutputRelativePath(readPageState.images[index]!.path!),
@@ -318,8 +318,8 @@ abstract class BaseLayout extends StatelessWidget {
 
   Widget _buildLocalImage(BuildContext context, int index) {
     return GestureDetector(
-      onLongPress: () => logic.showBottomMenuInLocalMode(index, context),
-      onSecondaryTap: () => logic.showBottomMenuInLocalMode(index, context),
+      onLongPressStart: (details) => logic.showLocalImageContextMenu(index, context, position: details.globalPosition),
+      onSecondaryTapDown: (details) => logic.showLocalImageContextMenu(index, context, position: details.globalPosition),
       child: EHImage(
         galleryImage: readPageState.images[index]!,
         containerWidth: logic.readPageState.imageContainerSizes[index]?.width ?? logic.getPlaceHolderSize(index).width,

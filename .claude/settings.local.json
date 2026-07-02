@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//mnt/c/code/**)",
+      "Bash(flutter analyze *)",
+      "Bash(flutter --version)",
+      "Git",
+      "Flutter",
+      "Dart",
+      "Java",
+      "Mvn",
+      "Find",
+      "Read",
+      "WebSearch",
+      "Bash(flutter pub *)",
+      "WebFetch(domain:skillsmp.com)",
+      "Bash(npx --version)",
+      "Bash(npx skills@latest *)",
+      "PowerShell(Test-Path *)",
+      "Bash(dart analyze *)"
+    ]
+  }
+}

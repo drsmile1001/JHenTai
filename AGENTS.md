@@ -155,7 +155,9 @@ Flutter SDK 可透過 VS Code Flutter 延伸套件安裝，或下載官方 tarba
   症狀: fatal error: 'system_network_proxy_linux/none.h' file not found
   原因: plugin pubspec 宣告 pluginClass: none，Flutter 3.41 將其作為真實類名產生無效 include
   修正: 在系統快取中找到對應版本的 pubspec.yaml，移除 linux 區塊下的 pluginClass: none 行
-  快取路徑範例: /home/<user>/.pub-cache/git/system_network_proxy-<hash>/system_network_proxy_linux/pubspec.yaml
+  快取路徑範例: |
+    從 pub.dev 解析 (v8.0.12): /home/<user>/.pub-cache/hosted/pub.dev/system_network_proxy_linux-<version>/pubspec.yaml
+    從 git 解析 (v8.0.14+):  /home/<user>/.pub-cache/git/system_network_proxy-<hash>/system_network_proxy_linux/pubspec.yaml
   注意: 每次 flutter pub get 解析到新版本的 system_network_proxy_linux 時都需重新修正
 ```
 

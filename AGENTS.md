@@ -4,7 +4,7 @@
 
 ## 專案概述
 
-JHenTai 是一個以 Flutter 開發的 E-Hentai/EXHentai 瀏覽器，目標平台為 Android、iOS、Windows、macOS 與 Linux。版本 `8.0.14+317`（取自 pubspec.yaml）。
+JHenTai 是一個以 Flutter 開發的 E-Hentai/EXHentai 瀏覽器，目標平台為 Android、iOS、Windows、macOS 與 Linux。版本 `8.0.16+333`（取自 pubspec.yaml）。
 
 ## 建置與開發指令
 
@@ -36,13 +36,13 @@ flutter test
 
 每個單例服務與設定都實作 `lib/src/service/jh_service.dart` 中的 `JHLifeCircleBean`：
 
-- `initBean()` — 非同步初始化（`runApp` 前呼叫）
+- `initBean()` — 非同步初始化，`runApp` 前呼叫
 - `afterBeanReady()` — runApp 後的設定
 - `initDependencies` — 此 bean 需先完成初始化的其他 bean 列表
 
-所有 bean 在 `main.dart` 中依拓扑排序註冊並依序初始化。三個 mixin 簡化常見模式：
-- `JHLifeCircleBeanErrorCatch` — 用 try/catch 包裹 init/ready 並記錄日誌
-- `JHLifeCircleBeanWithConfigStorage` — 在 `local_config` DB 表中加入 JSON 序列化/反序列化
+所有 bean 在 `lib/src/main.dart` 中以拓扑排序註冊並依序初始化。新增 service 或 setting 必須插入此列表並設定正確的 `initDependencies` 順序，註冊順序錯誤會導致初始化失敗。三個 mixin 簡化常見模式：
+- `JHLifeCircleBeanErrorCatch` — 用 try/catch 包裹 init/ready 並記錄日誌，子類別覆寫 `doInitBean()` / `doAfterBeanReady()` 取代直接實作
+- `JHLifeCircleBeanWithConfigStorage` — 在 `local_config` DB 表中加入 JSON 序列化/反序列化，透過 `applyBeanConfig()` / `getBeanConfig()` 套用與讀取
 - 服務 bean 位於 `lib/src/service/`；設定單例位於 `lib/src/setting/`
 
 ### 路由
@@ -74,12 +74,13 @@ HTML 回應解析器位於 `lib/src/utils/eh_spider_parser.dart`。
 
 ### 資料庫（`lib/src/database/`）
 
-Drift（SQLite），schema 版本 23，含有大量遷移鏈。表格在 `database/table/`，DAO 在 `database/dao/`。全域 `appDb` 單例在 `database.dart` 底部宣告。生成的程式碼在 `database.g.dart`。
+Drift（SQLite），schema 版本 25，含有大量遷移鏈。表格在 `database/table/`，DAO 在 `database/dao/`。全域 `appDb` 單例在 `database.dart` 底部宣告。生成的程式碼在 `database.g.dart`。每次 schema 變更後需重新執行 `dart run build_runner build` 並在 `MigrationStrategy.onUpgrade` 中新增遷移步驟。
 
 ### 服務（`lib/src/service/`）
 
-管理核心功能的獨立單例：
-- `gallery_download_service.dart` / `archive_download_service.dart` — 下載引擎，含並列佇列、續傳、優先級
+管理核心功能的獨立單例，`gallery_download/` 目錄內含下載引擎相關類別：
+- `gallery_download/gallery_download_service.dart` / `archive_download_service.dart` — 下載引擎，含並列佇列、續傳、優先級
+- `gallery_download/gallery_download_task_runner.dart` / `gallery_metadata_store.dart` — 下載任務執行與中繼資料
 - `tag_translation_service.dart` — 從 EhTagTranslation 取得並快取標籤翻譯
 - `local_block_rule_service.dart` — 使用者設定的 gallery 封鎖規則
 - `cloud_service.dart` — 設定同步
@@ -102,7 +103,7 @@ Drift（SQLite），schema 版本 23，含有大量遷移鏈。表格在 `databa
 
 ### i18n（`lib/src/l18n/`）
 
-透過 `LocaleText`（GetX `Translations`）自訂翻譯系統。每個語言一個 `.dart` 檔案，內容為鍵值對。新增語言需要：語言檔案、`locale_text.dart` 中的項目、`locale_consts.dart` 中的項目。
+透過 `LocaleText`（GetX `Translations`）自訂翻譯系統。每個語言一個 `.dart` 檔案，內容為鍵值對。新增語言需要：語言檔案、`locale_text.dart` 中的項目、`lib/src/consts/locale_consts.dart` 中的項目。
 
 ### Widget 函式庫（`lib/src/widget/`）
 
@@ -119,7 +120,7 @@ Drift（SQLite），schema 版本 23，含有大量遷移鏈。表格在 `databa
 
 ## Fedora Linux 建置注意事項
 
-本分支 `build/fedora-flutter-3.41` 用於在 Fedora 44 搭配 Flutter 3.41.9 從原始碼建置 JHenTai。
+本分支 `build/fedora-flutter-3.41` 用於在 Fedora 44 搭配 Flutter 3.47.2 從原始碼建置 JHenTai。分支名保留 3.41 為歷史名稱，實際使用 SDK 版本已更新。
 
 ### 必要系統套件
 
@@ -134,31 +135,32 @@ sudo dnf install gtk3-devel webkit2gtk4.1-devel
 
 Flutter SDK 可透過 VS Code Flutter 延伸套件安裝，或下載官方 tarball 解壓。本機 SDK 路徑為 `/home/<user>/repos/flutter`。
 
-### Flutter 3.41.x 已知相容問題
+### Flutter 3.47.x 已知相容問題
 
-每次升級到新的上游 JHenTai 版本後，若上游原始使用的 Flutter 版本較舊，需重新套用以下修正。
+每次升級到新的上游 JHenTai 版本後，若上游原始使用的 Flutter 版本較舊，需檢查以下依賴是否與 SDK 相容。Flutter 3.47.2 內建 `flutter_test` 鎖定 `path ^1.9.1`、`flutter_localizations` 鎖定 `intl ^0.20.3`；上游 8.0.16+333 的 pubspec.yaml 已直接採用 `path: 1.9.1` 與 `intl: ^0.20.3`，與 SDK 相容，不需額外修正。若上游未來鎖定較舊版本，需比照以下方式修正。
 
 ```yaml
 - 套件: path
-  症狀: 'flutter_test' from SDK requires path 1.9.1，專案鎖定 1.9.0
-  修正: 在 pubspec.yaml dependencies 中將 path: 1.9.0 改為 path: ^1.9.0
+  症狀: 'flutter_test' from SDK requires path 1.9.1，專案鎖定較舊
+  修正: 在 pubspec.yaml dependencies 中將 path 改為 1.9.1
 
 - 套件: intl
-  症狀: 'flutter_localizations' from SDK pins intl 0.20.2，專案鎖定 0.19.0
-  修正: 在 pubspec.yaml dependency_overrides 中加入 intl: 0.20.2
+  症狀: 'flutter_localizations' from SDK pins intl 0.20.3，專案鎖定較舊
+  修正: 在 pubspec.yaml dependencies 中將 intl 改為 ^0.20.3，勿使用 dependency_overrides 硬蓋
 
 - API: DialogTheme
   症狀: 'DialogTheme' can't be assigned to 'DialogThemeData?'
   修正: 在 lib/src/config/theme_config.dart 中將 DialogTheme 改為 DialogThemeData
+  備註: 上游 8.0.16 已使用 DialogThemeData，本分支不需額外修正
 
 - Plugin: system_network_proxy_linux
   症狀: fatal error: 'system_network_proxy_linux/none.h' file not found
-  原因: plugin pubspec 宣告 pluginClass: none，Flutter 3.41 將其作為真實類名產生無效 include
+  原因: plugin pubspec 宣告 pluginClass: none，Flutter 3.41+ 將其作為真實類名產生無效 include
   修正: 在系統快取中找到對應版本的 pubspec.yaml，移除 linux 區塊下的 pluginClass: none 行
   快取路徑範例: |
-    從 pub.dev 解析 (v8.0.12): /home/<user>/.pub-cache/hosted/pub.dev/system_network_proxy_linux-<version>/pubspec.yaml
-    從 git 解析 (v8.0.14+):  /home/<user>/.pub-cache/git/system_network_proxy-<hash>/system_network_proxy_linux/pubspec.yaml
-  注意: 每次 flutter pub get 解析到新版本的 system_network_proxy_linux 時都需重新修正
+    從 pub.dev 解析: /home/<user>/.pub-cache/hosted/pub.dev/system_network_proxy_linux-<version>/pubspec.yaml
+    從 git 解析:    /home/<user>/.pub-cache/git/system_network_proxy-<hash>/system_network_proxy_linux/pubspec.yaml
+  注意: 上游 8.0.16 的 ref 46f89c8 已改用真實 pluginClass，不需修正；僅在解析到宣告 none 的舊版本時需處理
 ```
 
 ### Generated plugin registrant 檔案

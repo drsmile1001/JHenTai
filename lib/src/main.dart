@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +15,7 @@ import 'package:jhentai/src/service/archive_download_service.dart';
 import 'package:jhentai/src/service/built_in_blocked_user_service.dart';
 import 'package:jhentai/src/service/cloud_service.dart';
 import 'package:jhentai/src/service/frame_rate_service.dart';
-import 'package:jhentai/src/service/gallery_download_service.dart';
+import 'package:jhentai/src/service/gallery_download/gallery_download_service.dart';
 import 'package:jhentai/src/service/history_service.dart';
 import 'package:jhentai/src/service/isolate_service.dart';
 import 'package:jhentai/src/service/jh_service.dart';
@@ -126,7 +128,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    Widget app = GetMaterialApp(
       title: 'JHenTai',
       themeMode: styleSetting.themeMode.value,
       theme: ThemeConfig.theme(styleSetting.lightThemeColor.value, Brightness.light),
@@ -161,6 +163,12 @@ class MyApp extends StatelessWidget {
         }
       },
     );
+
+    /// https://github.com/flutter/flutter/issues/182444
+    if (Platform.isWindows) {
+      app = ExcludeSemantics(child: app);
+    }
+    return app;
   }
 }
 

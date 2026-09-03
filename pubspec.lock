@@ -157,10 +157,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "644dc98a0f179b872f612d3eb627924b578897c629788e858157fa5e704ca0c7"
+      sha256: "028819cfb90051c6b5440c7e574d1896f8037e3c96cf17aaeb054c9311cfbf4d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.11"
+    version: "2.4.13"
   build_runner_core:
     dependency: transitive
     description:
@@ -667,14 +667,6 @@ packages:
       url: "https://github.com/MarlonJD/FlutterToast"
     source: git
     version: "8.2.8"
-  font_awesome_flutter:
-    dependency: "direct main"
-    description:
-      name: font_awesome_flutter
-      sha256: "1f93e5799f0e6c882819e8393a05c6ca5226010f289190f2242ec19f3f0fdba5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.2.0"
   frontend_server_client:
     dependency: "direct dev"
     description:
@@ -1058,18 +1050,18 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
+      sha256: "307249ce4ff29d58a18e97f6345f539382eb9c9c29ecda628900f31de0443dd9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.17.0"
+    version: "1.19.0"
   mime:
     dependency: transitive
     description:
       name: mime
-      sha256: "801fd0b26f14a4a58ccb09d5892c3fbdeff209594300a542492cf13fba9d247a"
+      sha256: bd47de35f07e27267e69c8c8b22edf9473bfee170a60d60fcc93730c5144b7f6
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "2.1.0"
   nested:
     dependency: transitive
     description:
@@ -1154,10 +1146,10 @@ packages:
     dependency: "direct main"
     description:
       name: path_provider
-      sha256: c9e7d3a4cd1410877472158bee69963a4579f78b68c65a2b7d40d1a7a88bb161
+      sha256: fec0d61223fba3154d87759e3cc27fe2c8dc498f6386c6d6fc80d1afdd1bf378
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.3"
+    version: "2.1.4"
   path_provider_android:
     dependency: transitive
     description:
@@ -1258,8 +1250,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: separate
-      resolved-ref: "0103e5f87804561161806759b3eb4d1231e20de2"
+      ref: "1fecde37"
+      resolved-ref: "1fecde379eade5cadbe14fcf9f18482cd5b32db1"
       url: "https://github.com/jiangtian616/photo_view"
     source: git
     version: "0.14.0"
@@ -1372,18 +1364,18 @@ packages:
     dependency: transitive
     description:
       name: rxdart
-      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      sha256: "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
       url: "https://pub.dev"
     source: hosted
-    version: "0.27.7"
+    version: "0.28.0"
   saver_gallery:
     dependency: "direct main"
     description:
       name: saver_gallery
-      sha256: fbd52d7b3095f6463faef3372a2d9c02e7a95af2b1cc7493494f19174b422b2b
+      sha256: dcecd87113ffcb0eb467bb0ef5ed8f6dd894e26ff3dfd5822624281e7d2cb894
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.5"
+    version: "5.1.0"
   screen_brightness:
     dependency: "direct main"
     description:
@@ -1658,18 +1650,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_charts
-      sha256: cdc207291ad0caf34cb9e20caa8938ff65f67a413b3a86a14d3a7b341a772100
+      sha256: de87119be9d19161dc5d46ac90ab338a084d552dd72af582b210dfa1f8106164
       url: "https://pub.dev"
     source: hosted
-    version: "27.1.48"
+    version: "34.2.6"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "325f519ce4ad8edd81811c21b853d72018529e353584490824da0555156ba076"
+      sha256: cecc21b0ac16cf6a85f9fa58d0a886cc1c0cc704f6e7aaef7c2a4412bde5ae0f
       url: "https://pub.dev"
     source: hosted
-    version: "27.2.5"
+    version: "34.2.6"
   synchronized:
     dependency: transitive
     description:
@@ -1682,8 +1674,8 @@ packages:
     dependency: "direct main"
     description:
       path: system_network_proxy
-      ref: "6b02ba0"
-      resolved-ref: "6b02ba0fc91e90ba102dca3374747b091e719987"
+      ref: "46f89c8"
+      resolved-ref: "46f89c88575239618d8e9fc20e4bd3a1ef70b9cd"
       url: "https://github.com/jiangtian616/system_network_proxy"
     source: git
     version: "1.0.2"
@@ -1691,18 +1683,19 @@ packages:
     dependency: "direct main"
     description:
       path: system_network_proxy_linux
-      ref: "6b02ba0"
-      resolved-ref: "6b02ba0fc91e90ba102dca3374747b091e719987"
+      ref: "46f89c8"
+      resolved-ref: "46f89c88575239618d8e9fc20e4bd3a1ef70b9cd"
       url: "https://github.com/jiangtian616/system_network_proxy"
     source: git
     version: "1.0.2"
   system_network_proxy_macos:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: system_network_proxy_macos
-      sha256: "89ed28d040f21b2794df1147150900e88f046372d60a7fa7848b5e4c9fe6263f"
-      url: "https://pub.dev"
-    source: hosted
+      path: system_network_proxy_macos
+      ref: "46f89c8"
+      resolved-ref: "46f89c88575239618d8e9fc20e4bd3a1ef70b9cd"
+      url: "https://github.com/jiangtian616/system_network_proxy"
+    source: git
     version: "1.0.2"
   system_network_proxy_platform_interface:
     dependency: transitive
@@ -1721,12 +1714,13 @@ packages:
     source: hosted
     version: "1.0.2"
   system_network_proxy_windows:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: system_network_proxy_windows
-      sha256: "67f911602edd0a96890239090b8b929f90038547680264625f6f2334ef8a7a23"
-      url: "https://pub.dev"
-    source: hosted
+      path: system_network_proxy_windows
+      ref: "46f89c8"
+      resolved-ref: "46f89c88575239618d8e9fc20e4bd3a1ef70b9cd"
+      url: "https://github.com/jiangtian616/system_network_proxy"
+    source: git
     version: "1.0.2"
   telegram:
     dependency: "direct main"
@@ -1740,10 +1734,10 @@ packages:
     dependency: "direct main"
     description:
       name: template_expressions
-      sha256: "5e5de0eab8314e697e8e65b89e33ded3e209dbf34c4c6c1167fc7f1fc74bf9f6"
+      sha256: "3e64a9b888fb8ea41e91e62d0053b706818414050f0762076b721576d782a34a"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0+7"
+    version: "3.3.1+2"
   term_glyph:
     dependency: transitive
     description:
@@ -1884,10 +1878,10 @@ packages:
     dependency: "direct main"
     description:
       name: uuid
-      sha256: "814e9e88f21a176ae1359149021870e87f7cddaf633ab678a5d2b0bff7fd1ba8"
+      sha256: a5be9ef6618a7ac1e964353ef476418026db906c4facdedaa299b7a2e71690ff
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
+    version: "4.5.1"
   vector_graphics:
     dependency: transitive
     description:
@@ -1916,10 +1910,10 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: d530bd74fea330e6e364cda7a85019c434070188383e1cd8d9777ee586914c5b
+      sha256: f36f9f3be64c6198714492bb455c11056e33e2f85d9a0b676a48301e44fdcf47
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.4.2"
   video_player:
     dependency: transitive
     description:
@@ -1976,6 +1970,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.2.5"
+  volume_button_override:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: a138c2125492f938b723259f57428a0b77f3f4b1
+      url: "https://github.com/jiangtian616/volume_button_override"
+    source: git
+    version: "0.0.1"
   wakelock_plus:
     dependency: "direct main"
     description:
@@ -2138,5 +2141,5 @@ packages:
     source: hosted
     version: "2.0.1"
 sdks:
-  dart: ">=3.9.0-0 <4.0.0"
-  flutter: ">=3.24.0"
+  dart: ">=3.12.0 <4.0.0"
+  flutter: ">=3.44.0"

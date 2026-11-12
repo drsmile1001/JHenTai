@@ -104,7 +104,7 @@ class zh_CN {
       'refreshIgneousFailed': '刷新Igneous失败',
 
       /// request
-      'sadPanda': 'Sad Panda(无响应数据). 解决参考Github Wiki: https://github.com/jiangtian616/JHenTai/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98',
+      'sadPanda': 'Sad Panda(无响应数据). 解决参考Github Wiki: https://github.com/jiangtian616/JHenTai/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98，如果你看得懂中文请不要到处截图询问。',
       'sadPandaReferLink': 'https://github.com/jiangtian616/JHenTai/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98',
 
       /// gallery card
@@ -337,6 +337,10 @@ class zh_CN {
 
       /// style setting page
       'layoutMode': '布局模式',
+      'layoutFollowOrientation': '按横竖屏区分布局',
+      'layoutFollowOrientationHint': '竖屏和横屏时分别使用不同的布局',
+      'portraitLayout': '竖屏布局',
+      'landscapeLayout': '横屏布局',
       'enableTagZHTranslation': '开启标签中文翻译',
       'version': '版本',
       'downloadTagTranslationHint': '下载数据中... 已下载: ',
@@ -400,6 +404,7 @@ class zh_CN {
       'showGalleryTagVoteStatus': '显示画廊标签投票状态',
       'showGalleryTagVoteStatusHint': '包括可信、存疑与错误三种状态',
       'showComments': '显示画廊评论',
+      'showCommentsHint': '关闭后详情页不再展示评论列表，但仍可点击所有评论进入评论页',
       'showAllComments': '显示画廊所有评论',
       'showAllCommentsHint': '默认只会展示45个最高分评论和5个最新评论，低分评论也会被自动隐藏',
       'addTag': '添加标签',
@@ -519,6 +524,8 @@ class zh_CN {
       'tapZoneActionPrevPage': '上一页',
       'tapZoneActionNextPage': '下一页',
       'tapZoneActionToggleMenu': '切换菜单',
+      'tapZoneActionFlipLeft': '向左翻页',
+      'tapZoneActionFlipRight': '向右翻页',
       'tapZoneLeftColumnRatio': '左列宽度',
       'tapZoneMiddleColumnRatio': '中列宽度',
       'tapZoneRightColumnRatio': '右列宽度',
@@ -814,6 +821,9 @@ favnote：匹配收藏备注
       'checkInSuccess': '签到成功',
       'checkInSuccessHint': '获得GP：%s，当前总GP：%s。',
       'pauseDownloadByInvalidArchiveBotKey': '归档Bot设置无效，下载已暂停',
+      'archiveBotNotConfigured': '归档机器人未配置，前往设置？',
+      'getBotCostFailed': '获取Bot花费失败',
+      'archiveBotShort': 'Bot',
       'chooseArchiveParseSource': '修改解析来源',
       'official': '官方',
       'archiveBot': '归档机器人',
@@ -909,7 +919,7 @@ favnote：匹配收藏备注
       /// tag dialog actions
       'tagActionAccurate': '准确',
       'tagActionInaccurate': '不准确',
-      'tagActionFollow': '关注',
+      'tagActionFollow': '关注标签',
       'tagActionHide': '屏蔽标签',
       'tagActionTagSets': '管理标签集',
       'tagActionVoteUpTooltip': '投票认为此标签适用于当前画廊',

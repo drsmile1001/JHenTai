@@ -70,7 +70,12 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
       init: logic,
       builder: (_) => Scaffold(
         appBar: buildAppBar(context),
-        body: buildBody(context),
+
+        /// The content extends under iPhone Duo's vertical bar while the app bar and the floating button keep avoiding it, see
+        /// [EHPage.extendIntoVerticalBar]. Builder reads the padding below Scaffold, which has removed the top inset for the body.
+        body: Builder(
+          builder: (context) => MediaQuery.removePadding(context: context, removeLeft: true, removeRight: true, child: buildBody(context)),
+        ),
         floatingActionButton: buildFloatingActionButton(),
       ),
     );
@@ -211,7 +216,7 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
           physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           scrollBehavior: UIConfig.scrollBehaviourWithScrollBarWithMouse,
           controller: state.scrollController,
-          scrollCacheExtent: ScrollCacheExtent.pixels(5000),
+          scrollCacheExtent: const ScrollCacheExtent.pixels(250),
           slivers: [
             CupertinoSliverRefreshControl(onRefresh: logic.handleRefresh),
             if (preferenceSetting.showAllGalleryTitles.isTrue) _buildSubTitle(context),
@@ -222,7 +227,7 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
             buildCopyRightRemovedHint(),
             buildLoadingDetailsIndicator(),
             buildTags(),
-            if (preferenceSetting.showComments.isTrue) buildComments(),
+            buildComments(),
             buildThumbnails(),
             buildLoadingThumbnailIndicator(context),
           ],
@@ -1344,7 +1349,7 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
                   ),
                 ),
               ),
-              if (state.galleryDetails!.comments.isNotEmpty)
+              if (preferenceSetting.showComments.isTrue && state.galleryDetails!.comments.isNotEmpty)
                 GestureDetector(
                   onTap: () => toRoute(Routes.comment, arguments: state.galleryDetails!.comments),
                   child: SizedBox(
@@ -1410,6 +1415,7 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
                                           containerWidth: constraints.maxWidth,
                                           borderRadius: BorderRadius.circular(8),
                                           maxBytes: 128 * 1024,
+                                          disableAnimation: true,
                                         )
                                       : EHThumbnail(
                                           thumbnail: state.galleryDetails!.thumbnails[index],

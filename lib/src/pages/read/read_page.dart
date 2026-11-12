@@ -64,6 +64,7 @@ class _ReadPageState extends State<ReadPage> with ScrollStatusListener, WindowLi
       value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.transparent,
         systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
         statusBarColor: Colors.transparent,
         systemNavigationBarIconBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
@@ -204,7 +205,15 @@ class _ReadPageState extends State<ReadPage> with ScrollStatusListener, WindowLi
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(8)),
               ),
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(right: 32, bottom: 1, top: 3, left: 6),
+
+              /// keep the text out of the right system inset, e.g. the vertical status bar of iPhone Duo's inner screen,
+              /// except in immersive mode, where the status bar is hidden
+              padding: EdgeInsets.only(
+                right: readSetting.enableImmersiveMode.isTrue ? 32 : max(32, MediaQuery.paddingOf(context).right + 8),
+                bottom: 1,
+                top: 3,
+                left: 6,
+              ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -400,16 +409,27 @@ class _ReadPageState extends State<ReadPage> with ScrollStatusListener, WindowLi
                   UIConfig.readPageBottomSliderHeight -
                   (readSetting.enableBottomMenu.isTrue ? UIConfig.readPageBottomActionHeight : 0) -
                   max(MediaQuery.of(context).viewPadding.bottom, UIConfig.readPageBottomSpacingHeight),
+          left: 0,
+          right: 0,
           child: ColoredBox(
             color: UIConfig.readPageMenuColor,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (readSetting.showThumbnails.isTrue) Offstage(offstage: !state.isMenuOpen, child: _buildThumbnails(context)),
-                _buildSlider(),
-                if (readSetting.enableBottomMenu.isTrue) _buildBottomAction(),
-                SizedBox(height: max(MediaQuery.of(context).viewPadding.bottom, UIConfig.readPageBottomSpacingHeight)),
-              ],
+
+            /// menu background stays edge-to-edge, while its content avoids the left and right system insets,
+            /// except in immersive mode, where the status bar is hidden and the menu takes the full width
+            child: SafeArea(
+              top: false,
+              bottom: false,
+              left: readSetting.enableImmersiveMode.isFalse,
+              right: readSetting.enableImmersiveMode.isFalse,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (readSetting.showThumbnails.isTrue) Offstage(offstage: !state.isMenuOpen, child: _buildThumbnails(context)),
+                  _buildSlider(),
+                  if (readSetting.enableBottomMenu.isTrue) _buildBottomAction(),
+                  SizedBox(height: max(MediaQuery.of(context).viewPadding.bottom, UIConfig.readPageBottomSpacingHeight)),
+                ],
+              ),
             ),
           ),
         ),
@@ -419,7 +439,7 @@ class _ReadPageState extends State<ReadPage> with ScrollStatusListener, WindowLi
 
   Widget _buildThumbnails(BuildContext context) {
     return SizedBox(
-      width: fullScreenWidth,
+      width: double.infinity,
       height: UIConfig.readPageBottomThumbnailsRegionHeight,
       child: Obx(
         () => EHWheelSpeedControllerForReadPage(
@@ -534,7 +554,7 @@ class _ReadPageState extends State<ReadPage> with ScrollStatusListener, WindowLi
       id: logic.sliderId,
       builder: (_) => SizedBox(
         height: UIConfig.readPageBottomSliderHeight,
-        width: fullScreenWidth,
+        width: double.infinity,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -576,7 +596,7 @@ class _ReadPageState extends State<ReadPage> with ScrollStatusListener, WindowLi
 
     return SizedBox(
       height: UIConfig.readPageBottomActionHeight,
-      width: fullScreenWidth,
+      width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
